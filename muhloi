@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>ChemoOcean Game</title>
+	<style>
+		body {
+			background-color: #f0f0f0;
+			font-family: Arial, sans-serif;
+		}
+		.game-container {
+			width: 80%;
+			margin: 40px auto;
+			padding: 20px;
+			background-color: #fff;
+			border: 1px solid #ddd;
+			border-radius: 10px;
+			box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+		}
+		.game-header {
+			background-color: #333;
+			color: #fff;
+			padding: 10px;
+			text-align: center;
+		}
+		.game-content {
+			padding: 20px;
+		}
+		.button {
+			background-color: #4CAF50;
+			color: #fff;
+			padding: 10px 20px;
+			border: none;
+			border-radius: 5px;
+			cursor: pointer;
+		}
+		.button:hover {
+			background-color: #3e8e41;
+		}
+	</style>
+</head>
+<body>
+	<div class="game-container">
+		<div class="game-header">
+			<h1>ChemoOcean Game</h1>
+		</div>
+		<div class="game-content">
+			<p>You are a chemosynthetic microorganism in the ChemoOcean.</p>
+			<p>Your current energy: <span id="energy">10</span></p>
+			<p>Your current food web energy: <span id="food-web-energy">0</span></p>
+			<p>What do you want to do?</p>
+			<button class="button" onclick="moveToNewLocation()">Move to a new location</button>
+			<button class="button" onclick="eatFood()">Eat some food</button>
+			<button class="button" onclick="chemosynthesize()">Chemosynthesize some energy</button>
+			<button class="button" onclick="checkSurroundings()">Check your surroundings</button>
+			<div id="game-output"></div>
+		</div>
+	</div>
+
+	<script>
+		let energy = 10;
+		let foodWebEnergy = 0;
+		let location = "Hydrothermal Vent";
+
+		function moveToNewLocation() {
+			let locations = ["Hydrothermal Vent", "Volcanic Region", "Mineral-Rich Seafloor"];
+			location = randomChoice(locations);
+			document.getElementById("game-output").innerHTML = `You moved to ${location}.`;
+		}
+
+		function eatFood() {
+			if (location == "Hydrothermal Vent") {
+				foodWebEnergy += 5;
+				document.getElementById("food-web-energy").innerHTML = foodWebEnergy;
+				document.getElementById("game-output").innerHTML = "You ate some delicious chemosynthetic compounds!";
+			} else {
+				document.getElementById("game-output").innerHTML = "There's no food here.";
+			}
+		}
+
+		function chemosynthesize() {
+			if (location == "Hydrothermal Vent") {
+				energy += 10;
+				document.getElementById("energy").innerHTML = energy;
+				document.getElementById("game-output").innerHTML = "You absorbed some chemical energy from the vent!";
+			} else {
+				document.getElementById("game-output").innerHTML = "There's no chemical energy here.";
+			}
+		}
+
+		function checkSurroundings() {
+			if (location == "Hydrothermal Vent") {
+				document.getElementById("game-output").innerHTML = "You see a hot, chemical-rich environment.";
+			} else if (location == "Volcanic Region") {
+				document.getElementById("game-output").innerHTML = "You see a region of intense volcanic activity.";
+			} else if (location == "Mineral-Rich Seafloor") {
+				document.getElementById("game-output").innerHTML = "You see a seafloor rich in minerals and nutrients.";
+			}
+		}
+
+		function randomChoice(arr) {
+			return arr[Math.floor(Math.random() * arr.length)];
+		}
+	</script>
+</body>
+</html>
